@@ -1,0 +1,40 @@
+alias root="sudo su"
+alias grep="grep --color"
+
+alias cdrom="sudo mount /dev/sr0 /mnt/cdrom"
+alias uncdrom="sudo umount /mnt/cdrom"
+alias check_cdrom="eject -t /dev/sr0; sleep 15; sudo mount /dev/sr0 /mnt/cdrom; cd /mnt/cdrom"
+
+alias redis-cli="redis-cli -a \"}}]}]·}]}}]}}{}}{}}\""
+alias mongo="mongo --host=localhost"
+alias mocha="ENV=test mocha --exit -t spec"
+
+alias view_crl="openssl crl -noout -text -in"
+alias view_ca="openssl x509 -noout -text -in"
+alias view_csr="openssl req -noout -text -in"
+
+alias jpm="jpm --binary /usr/bin/firefox --profile jacobian"
+
+alias pull_music="rsync -avz rsync://main/music/ /media/music/"
+alias pulld_music="rsync -avz --delete rsync://main/music/ /media/music/"
+
+alias mount_android="mtpfs -o allow_other /mnt/android"
+alias umount_android="fusermount -u /mnt/android"
+
+alias view_crl="openssl crl -noout -text -in"
+alias view_ca="openssl x509 -noout -text -in"
+alias view_csr="openssl req -noout -text -in"
+
+alias p365_worker="cd /var/www/pentest365; ENV=development node server/worker.cluster.js"
+alias p365_cluster="cd /var/www/pentest365; ENV=development node server/cluster.js"
+alias p365_dbserver="cd /var/www/pentest365; ENV=development node server/dbserver.js"
+alias p365_scheduler="cd /var/www/pentest365; ENV=development node server/scheduler.js"
+alias p365_notifier="cd /var/www/pentest365; ENV=development node server/notifier.js"
+alias p365_admin="cd /var/www/pentest365; ENV=development node server/admin.js"
+alias p365_master="cd /var/www/pentest365; ENV=development node server/master.js"
+
+alias docker_rm='docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q)'
+alias docker_ps="docker ps --all"
+
+# vim: set filetype=sh :
+
