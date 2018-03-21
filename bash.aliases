@@ -5,7 +5,7 @@ alias cdrom="sudo mount /dev/sr0 /mnt/cdrom"
 alias uncdrom="sudo umount /mnt/cdrom"
 alias check_cdrom="eject -t /dev/sr0; sleep 15; sudo mount /dev/sr0 /mnt/cdrom; cd /mnt/cdrom"
 
-alias redis-cli="redis-cli -a \"}}]}]·}]}}]}}{}}{}}\""
+alias redis-cli="redis-cli -a \"9R8ES9D9F\""
 alias mongo="mongo --host=localhost"
 alias mocha="ENV=test mocha --exit -t spec"
 

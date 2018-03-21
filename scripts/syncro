@@ -36,6 +36,7 @@ fs.readFile(playlist,'utf8',(err,data)=>{
     let songs=data.split(/\n/)
       , list=[]
       , dest_dir=join(destdir,playlist_.name)
+      , files=[]
 
     fs.access(dest_dir,fs.constants.R_OK,(err)=>{
         if(err){
@@ -47,16 +48,18 @@ fs.readFile(playlist,'utf8',(err,data)=>{
                 let orig=join(mediadir,song)
                   , orig_=parse(orig)
                   , dest=join(dest_dir,orig_.base)
-
                 dest=dest.replace(':','-');
 
+                files.push(playlist_.name+'/'+orig_.base);
                 list.push(copy(orig,dest));
             }
         }
 
         Promise.all(list).then((values)=>{
-            copy(playlist,join(destdir,playlist_.base));
-            console.log('[OK]');
+            fs.writeFile(join(destdir,playlist_.base),
+                files.join('\n'),(error)=>{
+                console.log('[OK]');
+            });
         });
     });
 });

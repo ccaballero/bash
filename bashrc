@@ -7,7 +7,7 @@ fi
 PS1="\n\[\033[01;33m\](\A) \[\033[01;32m\]\h!\u \[\033[01;36m\]\w \[\033[01;37m\]\$ \[\033[00m\]"
 
 export CDPATH=.:~:/mnt/:~/Proyectos/
-export PATH=~/.bash:~/Android/Sdk/platform-tools:~/Android/Sdk/tools:~/gradle-3.4.1/bin:~/.local/bin:$PATH
+export PATH=$PATH:~/.bash/scripts:~/.local/bin
 
 # bash history
 export HISTFILESIZE=

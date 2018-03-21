@@ -1,7 +1,9 @@
 #!/bin/bash
 
+# argument is the volumen name
 echo restore backup for $1
+DIR=`pwd`
 
-docker run -it -v $1:/volume -v ~:/backup node \
+docker run -it -v $1:/volume -v $DIR:/backup alpine \
     sh -c "rm -rf /volume/* /volume/..?* /volume/.[!.]* ; tar -C /volume/ -xvjf /backup/$1.tbz"
 
