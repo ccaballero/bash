@@ -48,8 +48,8 @@ fs.readFile(playlist,'utf8',(err,data)=>{
                 let orig=join(mediadir,song)
                   , orig_=parse(orig)
                   , dest=join(dest_dir,orig_.base)
-                dest=dest.replace(':','-');
 
+                dest=dest.replace(':','-');
                 files.push(playlist_.name+'/'+orig_.base);
                 list.push(copy(orig,dest));
             }

@@ -2,7 +2,7 @@
 
 echo making backup for $1
 
-DIR=´pwd´
+DIR=`pwd`
 
 docker run -it -v $1:/volume -v $DIR:/backup alpine \
     tar -cvjpf /backup/$1.tbz -C /volume ./
