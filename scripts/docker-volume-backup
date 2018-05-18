@@ -4,6 +4,6 @@ echo making backup for $1
 
 DIR=`pwd`
 
-docker run -it -v $1:/volume -v $DIR:/backup alpine \
+docker run -it --privileged=true -v $1:/volume -v $DIR:/backup alpine \
     tar -cvjpf /backup/$1.tbz -C /volume ./
 

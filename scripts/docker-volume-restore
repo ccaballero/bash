@@ -4,6 +4,6 @@
 echo restore backup for $1
 DIR=`pwd`
 
-docker run -it -v $1:/volume -v $DIR:/backup alpine \
+docker run -it --privileged=true -v $1:/volume -v $DIR:/backup alpine \
     sh -c "rm -rf /volume/* /volume/..?* /volume/.[!.]* ; tar -C /volume/ -xvjf /backup/$1.tbz"
 
