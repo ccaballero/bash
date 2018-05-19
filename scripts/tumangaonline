@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-if(!process.argv[2]){
+if(!process.argv[2]&&!process.argv[3]){
     console.log('Need one parameter, url from tmo');
     process.exit(1);
 }
@@ -30,7 +30,10 @@ var response=request('GET',api_url,{
   , url_image='https://img1.tumangaonline.com/subidas/'
         +params[1]+'/'+params[2]+'/'+params[3]+'/'
 
+fs.mkdirSync(process.argv[3]);
+
 images.forEach((i,j)=>{
+    console.log('=>',url_image+i);
     var stream=request('GET',url_image+i,{
             headers:{
                 'user-agent':'Mozilla/5.0 (X11; Linux i686; rv:10.0) Gecko/20100101 Firefox/10.0'
@@ -38,6 +41,7 @@ images.forEach((i,j)=>{
             }
         })
 
-    fs.writeFileSync(j.toString().padStart(2,'0')+'.jpg',stream.getBody());
+    fs.writeFileSync(process.argv[3]+'/'+
+        j.toString().padStart(2,'0')+'.jpg',stream.getBody());
 });
 

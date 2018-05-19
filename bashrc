@@ -23,12 +23,6 @@ if [[ $DISPLAY ]]; then
     setxkbmap -option keypad:pointerkeys
 fi
 
-if [ -f ~/.bash/bash.aliases ]
-then
-    . ~/.bash/bash.aliases
-    . ~/.bash/bash.aliases.secrets
-fi
-
 if [ -f ~/.bash/bash.secrets ]
 then
     . ~/.bash/bash.secrets

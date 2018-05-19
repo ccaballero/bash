@@ -1,0 +1,47 @@
+#!/usr/bin/env node
+
+if(!process.argv[2]){
+    console.log('Need one parameter, url from tmo');
+    process.exit(1);
+}
+
+const cheerio=require('cheerio')
+  , fs=require('fs')
+  , request=require('sync-request')
+  , regex=/https?\:\/\/inmanga.com\/ver\/manga\/(.*)\/(.*)\/(.*)/
+  , params=regex.exec(process.argv[2])
+
+console.log('Reading from',process.argv[2]);
+var response=request('GET',process.argv[2],{
+        headers:{
+            'user-agent':'Mozilla/5.0 (X11; Linux i686; rv:10.0) Gecko/20100101 Firefox/10.0'
+          , 'x-requested-with':'XMLHtttpRequest'
+          , 'referer':process.argv[2]
+          , 'accept':'application/json, text/plain, *-/*'
+          , 'accept-language':'es-419,es;q=0.9'
+          , 'cache-mode':'no-cache'
+        }
+    })
+  , $=cheerio.load(response.getBody().toString())
+  , options=$('select#PageList>option')
+  , codes=[]
+  , url_image='https://inmanga.com/page/getPageImage/?identification='
+
+Object.keys(options).forEach((i)=>{
+    if(Number.isInteger(+i)){
+        codes.push(options[i].attribs.value);
+    }
+});
+
+codes.forEach((i,j)=>{
+    console.log('=>',url_image+i);
+    var stream=request('GET',url_image+i,{
+            headers:{
+                'user-agent':'Mozilla/5.0 (X11; Linux i686; rv:10.0) Gecko/20100101 Firefox/10.0'
+              , 'referer':process.argv[2]
+            }
+        })
+
+    fs.writeFileSync(j.toString().padStart(2,'0')+'.jpg',stream.getBody());
+});
+
