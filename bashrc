@@ -14,6 +14,7 @@ export HISTFILESIZE=
 export HISTSIZE=
 export HISTTIMEFORMAT="[%F %T] "
 export HISTFILE=~/.bash_eternal_history
+
 PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 
 export ORACLE_HOME=/usr/lib64/oracle/11.2.0.4/client/
@@ -21,6 +22,11 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$ORACLE_HOME/lib
 
 if [[ $DISPLAY ]]; then
     setxkbmap -option keypad:pointerkeys
+fi
+
+if [ -f ~/.bash/bash.aliases ]
+then
+    . ~/.bash/bash.aliases
 fi
 
 if [ -f ~/.bash/bash.secrets ]
