@@ -42,6 +42,7 @@ alias p365_compose_prod="cd /var/www/p365; docker-compose -f docker-compose.base
 alias p365_builder_init='cd /var/www/p365; docker run -d -it --name p365-npm --privileged=true -v "$(pwd)"/.:/srv node:9.8.0 /bin/bash'
 alias p365_builder_start='docker exec -it p365-npm bash'
 
+alias docker_stop='docker stop $(docker ps -a -q)'
 alias docker_rm='docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q)'
 alias docker_ps="docker ps --all"
 
