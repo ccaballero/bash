@@ -43,6 +43,9 @@ alias p365_compose_ext="cd /var/www/p365; docker-compose -f docker-compose.base.
 alias p365_compose_full="cd /var/www/p365; docker-compose -f docker-compose.base.yml -f p365-service-openvas/docker-compose.yml -f p365-service-metasploit/docker-compose.yml -f docker-compose.development.yml -f docker-compose.development.extended.yml"
 alias p365_compose_prod="cd /var/www/p365; docker-compose -f docker-compose.base.yml -f docker-compose.production.yml"
 
+alias p365_compose_uxt_dev="cd /var/www/p365; docker-compose -f docker-compose.base.yml -f docker-compose.uxt.dev.yml"
+alias p365_compose_uxt_prod="cd /var/www/p365; docker-compose -f docker-compose.base.yml -f docker-compose.uxt.prod.yml"
+
 alias p365_builder_init='cd /var/www/p365; docker run -d -it --name p365-npm --privileged=true -v "$(pwd)"/.:/srv node:9.11.2 /bin/bash'
 alias p365_builder_start='docker exec -it p365-npm bash'
 
