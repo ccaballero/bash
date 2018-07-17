@@ -1,5 +1,9 @@
+# vim: set filetype=sh :
+
 alias root="sudo su"
 alias grep="grep --color"
+alias ls="ls --color"
+alias ll="ls -la --color"
 
 alias cdrom="sudo mount /dev/sr0 /mnt/cdrom"
 alias uncdrom="cd; sudo umount /mnt/cdrom; eject /dev/sr0"
@@ -36,15 +40,13 @@ alias p365_admin='cd /var/www/p365/p365-server-admin; npm run start:dev'
 alias p365_compose_base="cd /var/www/p365; docker-compose -f docker-compose.base.yml"
 alias p365_compose_dev="cd /var/www/p365; docker-compose -f docker-compose.base.yml -f docker-compose.development.yml"
 alias p365_compose_ext="cd /var/www/p365; docker-compose -f docker-compose.base.yml -f docker-compose.development.yml -f docker-compose.development.extended.yml"
-alias p365_compose_ser="cd /var/www/p365; docker-compose -f docker-compose.base.yml -f docker-compose.development.services.yml -f docker-compose.development.yml -f docker-compose.development.extended.yml"
+alias p365_compose_full="cd /var/www/p365; docker-compose -f docker-compose.base.yml -f p365-service-openvas/docker-compose.yml -f p365-service-metasploit/docker-compose.yml -f docker-compose.development.yml -f docker-compose.development.extended.yml"
 alias p365_compose_prod="cd /var/www/p365; docker-compose -f docker-compose.base.yml -f docker-compose.production.yml"
 
-alias p365_builder_init='cd /var/www/p365; docker run -d -it --name p365-npm --privileged=true -v "$(pwd)"/.:/srv node:9.8.0 /bin/bash'
+alias p365_builder_init='cd /var/www/p365; docker run -d -it --name p365-npm --privileged=true -v "$(pwd)"/.:/srv node:9.11.2 /bin/bash'
 alias p365_builder_start='docker exec -it p365-npm bash'
 
 alias docker_stop='docker stop $(docker ps -a -q)'
 alias docker_rm='docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q)'
 alias docker_ps="docker ps --all"
-
-# vim: set filetype=sh :
 
