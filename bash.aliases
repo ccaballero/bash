@@ -29,6 +29,12 @@ alias view_crl="openssl crl -noout -text -in"
 alias view_ca="openssl x509 -noout -text -in"
 alias view_csr="openssl req -noout -text -in"
 
+function couch_dump()
+{
+    couchdb-backup.sh -H couchdb -d $1 -f $1.couch -u pentest365 -p E3T84I155O6G23P -P 5984 -b
+    gzip $1.couch
+}
+
 alias p365_worker='cd /var/www/p365/p365-server-worker; npm run start:dev'
 alias p365_cluster='cd /var/www/p365/p365-server-cluster; npm run start:dev'
 alias p365_dbserver='cd /var/www/p365/p365-server-dbserver; npm run start:dev'

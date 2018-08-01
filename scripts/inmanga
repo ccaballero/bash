@@ -13,7 +13,8 @@ const cheerio=require('cheerio')
   , params=regex.exec(process.argv[2])
   , headers={
         headers:{
-            'user-agent':'Mozilla/5.0 (X11; Linux i686; rv:10.0) Gecko/20100101 Firefox/10.0'
+            'user-agent':'Mozilla/5.0 (X11; Linux i686; rv:10.0) '
+                +'Gecko/20100101 Firefox/10.0'
           , 'x-requested-with':'XMLHtttpRequest'
           , 'referer':process.argv[2]
           , 'accept':'application/json, text/plain, *-/*'
@@ -36,16 +37,26 @@ $('select#PageList>option').each(function(i,item){
 codes=uniq(codes);
 
 var url_image='https://inmanga.com/page/getPageImage/?identification='
+  , dir=''
+
+if(process.argv[3]){
+    if(!fs.existsSync(process.argv[3])){
+        fs.mkdirSync(process.argv[3]);
+    }
+
+    dir=process.argv[3]+'/';
+}
 
 codes.forEach((i,j)=>{
     console.log('=>',url_image+i);
     var stream=request('GET',url_image+i,{
             headers:{
-                'user-agent':'Mozilla/5.0 (X11; Linux i686; rv:10.0) Gecko/20100101 Firefox/10.0'
+                'user-agent':'Mozilla/5.0 (X11; Linux i686; rv:10.0) '
+                    +'Gecko/20100101 Firefox/10.0'
               , 'referer':process.argv[2]
             }
         })
 
-    fs.writeFileSync(j.toString().padStart(2,'0')+'.jpg',stream.getBody());
+    fs.writeFileSync(dir+j.toString().padStart(2,'0')+'.jpg',stream.getBody());
 });
 
