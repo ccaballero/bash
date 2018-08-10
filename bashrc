@@ -6,8 +6,8 @@ fi
 
 PS1="\n\[\033[01;33m\](\A) \[\033[01;32m\]\h!\u \[\033[01;36m\]\w \[\033[01;37m\]\$ \[\033[00m\]"
 
-export CDPATH=.:~:/mnt/:~/Proyectos/
-export PATH=$PATH:~/.bash/scripts:~/.local/bin
+export CDPATH=.:~/Proyectos/:/var/www/p365-sphere/
+export PATH=$PATH:~/.local/bin:~/.bash/scripts:/var/www/p365-sphere/p365-scripts/environment
 
 # bash history
 export HISTFILESIZE=

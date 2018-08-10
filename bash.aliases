@@ -44,24 +44,24 @@ function couchdb_restore()
     rm $dbname.couch
 }
 
-alias p365_worker='cd /var/www/p365/p365-server-worker; npm run start:dev'
-alias p365_cluster='cd /var/www/p365/p365-server-cluster; npm run start:dev'
-alias p365_dbserver='cd /var/www/p365/p365-server-dbserver; npm run start:dev'
-alias p365_scheduler='cd /var/www/p365/p365-server-scheduler; npm run start:dev'
-alias p365_notifier='cd /var/www/p365/p365-server-notifier; npm run start:dev'
-alias p365_master='cd /var/www/p365/p365-server-master; npm run start:dev'
-alias p365_admin='cd /var/www/p365/p365-server-admin; npm run start:dev'
+alias p365_worker='cd /var/www/p365-sphere/p365-tests/p365-server-worker; npm run start:dev'
+alias p365_cluster='cd /var/www/p365-sphere/p365-tests/p365-server-cluster; npm run start:dev'
+alias p365_dbserver='cd /var/www/p365-sphere/p365-tests/p365-server-dbserver; npm run start:dev'
+alias p365_scheduler='cd /var/www/p365-sphere/p365-tests/p365-server-scheduler; npm run start:dev'
+alias p365_notifier='cd /var/www/p365-sphere/p365-tests/p365-server-notifier; npm run start:dev'
+alias p365_master='cd /var/www/p365-sphere/p365-tests/p365-server-master; npm run start:dev'
+alias p365_admin='cd /var/www/p365-sphere/p365-tests/p365-server-admin; npm run start:dev'
 
-alias p365_compose_base="cd /var/www/p365; docker-compose -f docker-compose.base.yml"
-alias p365_compose_dev="cd /var/www/p365; docker-compose -f docker-compose.base.yml -f docker-compose.development.yml"
-alias p365_compose_ext="cd /var/www/p365; docker-compose -f docker-compose.base.yml -f docker-compose.development.yml -f docker-compose.development.extended.yml"
-alias p365_compose_full="cd /var/www/p365; docker-compose -f docker-compose.base.yml -f p365-service-openvas/docker-compose.yml -f p365-service-metasploit/docker-compose.yml -f docker-compose.development.yml -f docker-compose.development.extended.yml"
-alias p365_compose_prod="cd /var/www/p365; docker-compose -f docker-compose.base.yml -f docker-compose.production.yml"
+alias p365_compose_base="cd /var/www/p365-sphere/p365-docker; docker-compose -f docker-compose.base.yml"
+alias p365_compose_dev="cd /var/www/p365-sphere/p365-docker; docker-compose -f docker-compose.base.yml -f docker-compose.development.yml"
+alias p365_compose_ext="cd /var/www/p365-sphere/p365-docker; docker-compose -f docker-compose.base.yml -f docker-compose.development.yml -f docker-compose.development.extended.yml"
+alias p365_compose_full="cd /var/www/p365-sphere/p365-docker; docker-compose -f docker-compose.base.yml -f p365-service-openvas/docker-compose.yml -f p365-service-metasploit/docker-compose.yml -f docker-compose.development.yml -f docker-compose.development.extended.yml"
+alias p365_compose_prod="cd /var/www/p365-sphere/p365-docker; docker-compose -f docker-compose.base.yml -f docker-compose.production.yml"
 
 alias p365_compose_uxt_dev="cd /var/www/p365; docker-compose -f docker-compose.base.yml -f docker-compose.uxt.dev.yml"
 alias p365_compose_uxt_prod="cd /var/www/p365; docker-compose -f docker-compose.base.yml -f docker-compose.uxt.prod.yml"
 
-alias p365_builder_init='cd /var/www/p365; docker run -d -it --name p365-npm --privileged=true -v "$(pwd)"/.:/srv node:9.11.2 /bin/bash'
+alias p365_builder_init='cd /var/www/p365-sphere/p365-docker; docker run -d -it --name p365-npm --privileged=true -v "$(pwd)"/.:/srv node:9.11.2 /bin/bash'
 alias p365_builder_start='docker exec -it p365-npm bash'
 
 alias docker_stop='docker stop $(docker ps -a -q)'
