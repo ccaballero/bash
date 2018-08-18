@@ -61,10 +61,12 @@ alias p365_compose_prod="cd /var/www/p365-sphere/p365-docker; docker-compose -f 
 alias p365_compose_uxt_dev="cd /var/www/p365; docker-compose -f docker-compose.base.yml -f docker-compose.uxt.dev.yml"
 alias p365_compose_uxt_prod="cd /var/www/p365; docker-compose -f docker-compose.base.yml -f docker-compose.uxt.prod.yml"
 
-alias p365_builder_init='cd /var/www/p365-sphere/p365-docker; docker run -d -it --name p365-npm --privileged=true -v "$(pwd)"/.:/srv node:9.11.2 /bin/bash'
+alias p365_builder_init='cd /var/www/p365-sphere; docker run -d -it --name p365-npm --privileged=true -v "$(pwd)"/.:/srv node:9.11.2 /bin/bash'
 alias p365_builder_start='docker exec -it p365-npm bash'
 
 alias docker_stop='docker stop $(docker ps -a -q)'
 alias docker_rm='docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q)'
 alias docker_ps="docker ps --all"
+
+alias p365_tests_servers_ux='cd /var/www/p365-sphere/p365-scripts/tests; ./servers/ux.sh; cd -'
 

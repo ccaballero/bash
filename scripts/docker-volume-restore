@@ -1,9 +1,16 @@
 #!/bin/bash
 
-# argument is the volumen name
-echo restore backup for $1
-DIR=`pwd`
+# two arguments:
+#     path to file
+#     volume name
+echo restore volume backup from $1 to $2
 
-docker run -it --privileged=true -v $1:/volume -v $DIR:/backup alpine \
-    sh -c "rm -rf /volume/* /volume/..?* /volume/.[!.]* ; tar -C /volume/ -xvjf /backup/$1.tbz"
+DIR=`dirname $1`
+FILE=`basename $1`
+
+docker run -it --privileged=true \
+    -v $2:/volume \
+    -v $DIR:/backup alpine \
+        sh -c "rm -rf /volume/* /volume/..?* \
+              /volume/.[!.]*; tar -C /volume/ -xvjf /backup/$FILE"
 

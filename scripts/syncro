@@ -1,5 +1,10 @@
 #!/usr/bin/env node
 
+if(!process.argv[2]){
+    console.log('Need one or two parameters: playlist path and dest dir');
+    process.exit(1);
+}
+
 const path=require('path')
   , join=path.join
   , parse=path.parse

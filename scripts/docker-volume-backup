@@ -1,9 +1,15 @@
 #!/bin/bash
 
-echo making backup for $1
+# two arguments:
+#     volume name
+#     path to file
+echo making backup of $1 in $2
 
-DIR=`pwd`
+DIR=`dirname $2`
+FILE=`basename $2`
 
-docker run -it --privileged=true -v $1:/volume -v $DIR:/backup alpine \
-    tar -cvjpf /backup/$1.tbz -C /volume ./
+docker run -it --privileged=true \
+    -v $1:/volume \
+    -v $DIR:/backup alpine \
+        tar -cvjpf /backup/$FILE -C /volume ./
 
