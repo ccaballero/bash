@@ -3,13 +3,17 @@
 # two arguments:
 #     volume name
 #     path to file
-echo making backup of $1 in $2
+if [ $# == 2 ]; then
+    echo making backup of $1 in $2
 
-DIR=`dirname $2`
-FILE=`basename $2`
+    DIR=`dirname $2`
+    FILE=`basename $2`
 
-docker run -it --privileged=true \
-    -v $1:/volume \
-    -v $DIR:/backup alpine \
-        tar -cvjpf /backup/$FILE -C /volume ./
+    docker run -it --privileged=true \
+        -v $1:/volume \
+        -v $DIR:/backup alpine \
+            tar -cvjpf /backup/$FILE -C /volume ./
+else
+    echo 'need parameters: volume name origin and absolute path to file destination'
+fi
 

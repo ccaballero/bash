@@ -3,14 +3,18 @@
 # two arguments:
 #     path to file
 #     volume name
-echo restore volume backup from $1 to $2
+if [ $# == 2 ]; then
+    echo restore volume backup from $1 to $2
 
-DIR=`dirname $1`
-FILE=`basename $1`
+    DIR=`dirname $1`
+    FILE=`basename $1`
 
-docker run -it --privileged=true \
-    -v $2:/volume \
-    -v $DIR:/backup alpine \
-        sh -c "rm -rf /volume/* /volume/..?* \
-              /volume/.[!.]*; tar -C /volume/ -xvjf /backup/$FILE"
+    docker run -it --privileged=true \
+        -v $2:/volume \
+        -v $DIR:/backup alpine \
+            sh -c "rm -rf /volume/* /volume/..?* \
+                  /volume/.[!.]*; tar -C /volume/ -xvjf /backup/$FILE"
+else
+    echo 'need parameters: absolute path to file origin and volume name destination'
+fi
 
