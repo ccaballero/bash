@@ -6,9 +6,11 @@
 if [ $# == 2 ]; then
     echo restore volume backup from $1 to $2
 
-    DIR=`dirname $1`
-    FILE=`basename $1`
+    ABS=`readlink --canonicalize $1`
+    DIR=`dirname $ABS`
+    FILE=`basename $ABS`
 
+    echo loading from $ABS
     docker run -it --privileged=true \
         -v $2:/volume \
         -v $DIR:/backup alpine \

@@ -58,15 +58,21 @@ alias p365_compose_ext="cd /var/www/p365-sphere/p365-docker; docker-compose -f d
 alias p365_compose_full="cd /var/www/p365-sphere/p365-docker; docker-compose -f docker-compose.base.yml -f p365-service-openvas/docker-compose.yml -f p365-service-metasploit/docker-compose.yml -f docker-compose.development.yml -f docker-compose.development.extended.yml"
 alias p365_compose_prod="cd /var/www/p365-sphere/p365-docker; docker-compose -f docker-compose.base.yml -f docker-compose.production.yml"
 
-alias p365_compose_uxt_dev="cd /var/www/p365; docker-compose -f docker-compose.base.yml -f docker-compose.uxt.dev.yml"
-alias p365_compose_uxt_prod="cd /var/www/p365; docker-compose -f docker-compose.base.yml -f docker-compose.uxt.prod.yml"
+alias p365_compose_uxt_dev="cd /var/www/p365-sphere/p365; docker-compose -f docker-compose.base.yml -f docker-compose.uxt.dev.yml"
+alias p365_compose_uxt_prod="cd /var/www/p365-sphere/p365; docker-compose -f docker-compose.base.yml -f docker-compose.uxt.prod.yml"
 
-alias p365_builder_init='cd /var/www/p365-sphere; docker run -d -it --name p365-npm --privileged=true -v "$(pwd)"/.:/srv node:9.11.2 /bin/bash'
+alias p365_builder_init='cd /var/www/p365-sphere; docker run -d -it --name p365-npm --privileged=true --network=p365-network -p 3000-3199:3000-3199/tcp -v "$(pwd)"/.:/srv -w /srv/p365 p365/worker:dev-cluster /bin/bash'
 alias p365_builder_start='docker exec -it p365-npm bash'
+
+alias firmanza_builder_init='cd /var/www/firmanza-sphere; docker run -d -it --name firmanza-npm --privileged=true --network=firmanza-network -v "$(pwd)"/.:/srv -w /srv/firmanza-server/firmanza-user firmanza/user:dev /bin/bash'
+alias firmanza_builder_start='docker exec -it firmanza-npm bash'
 
 alias docker_stop='docker stop $(docker ps -a -q)'
 alias docker_rm='docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q)'
 alias docker_ps="docker ps --all"
+alias docker_logs="docker logs -f --tail=100"
 
 alias p365_tests_servers_ux='cd /var/www/p365-sphere/p365-scripts/tests; ./servers/ux.sh; cd -'
+
+alias wdio='/var/www/salesforce_automation/node_modules/.bin/wdio wdio.standalone.conf.js'
 

@@ -6,9 +6,11 @@
 if [ $# == 2 ]; then
     echo making backup of $1 in $2
 
-    DIR=`dirname $2`
-    FILE=`basename $2`
+    ABS=`readlink --canonicalize $2`
+    DIR=`dirname $ABS`
+    FILE=`basename $ABS`
 
+    echo saving on $ABS
     docker run -it --privileged=true \
         -v $1:/volume \
         -v $DIR:/backup alpine \

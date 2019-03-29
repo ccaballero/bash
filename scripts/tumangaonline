@@ -9,7 +9,8 @@ const cheerio=require('cheerio')
   , fs=require('fs')
   , request=require('sync-request')
   , uniq=require('underscore').uniq
-  , regex=/https?\:\/\/tumangaonline.me\/viewer\/(.*)\/paginated\/?(.*)/
+  , wait=require('wait-sync')
+  , regex=/https?\:\/\/tmofans.com\/viewer\/(.*)\/paginated\/?(.*)/
   , params=regex.exec(process.argv[2])
   , headers={
         headers:{
@@ -34,7 +35,7 @@ $('select#viewer-pages-select>option').each(function(i,item){
 
 pages=uniq(pages);
 
-var url_image='https://tumangaonline.me/viewer/'+params[1]+'/paginated/'
+var url_image='https://tmofans.com/viewer/'+params[1]+'/paginated/'
   , dir=''
 
 if(process.argv[3]){
@@ -70,5 +71,7 @@ pages.forEach((i,j)=>{
 
     fs.writeFileSync(dir+j.toString().padStart(2,'0')+'.jpg',stream.getBody());
     console.log();
+
+    wait(5);
 });
 
