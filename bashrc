@@ -7,7 +7,7 @@ fi
 PS1="\n\[\033[01;33m\](\A) \[\033[01;32m\]\h!\u \[\033[01;36m\]\w \[\033[01;37m\]\$ \[\033[00m\]"
 
 export CDPATH=.:~/Proyectos/:/var/www/p365-sphere/
-export PATH=$PATH:~/.local/bin:~/.bash/scripts:~/netbeans-10.0/bin:/var/www/p365-sphere/p365-scripts/environment
+export PATH=$PATH:~/.local/bin:~/.bash/scripts:~/netbeans-10.0/bin:/var/www/p365-sphere/p365-scripts/environment:/opt/ataraxia/builds/ataraxia-linux-x64
 
 # bash history
 export HISTFILESIZE=
