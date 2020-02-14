@@ -37,9 +37,9 @@ alias p365_notifier='cd /var/www/p365-sphere/p365-tests/p365-server-notifier; np
 alias p365_master='cd /var/www/p365-sphere/p365-tests/p365-server-master; npm run start:dev'
 alias p365_admin='cd /var/www/p365-sphere/p365-tests/p365-server-admin; npm run start:dev'
 
-alias p365_npm1_init='cd /var/www/p365-sphere; docker run -d -it --name p365-npm1 --privileged=true --network=p365-network -v "$(pwd)"/.:/srv -w /srv/p365 node:11.13.0 /bin/bash'
+alias p365_npm1_init='cd /var/www/p365-sphere; docker run -d -it --name p365-npm1 --privileged=true --network=p365-network -v "$(pwd)"/.:/srv -w /srv/p365 node:13.8.0-buster /bin/bash'
 alias p365_npm1_start='docker exec -it p365-npm1 bash'
-alias p365_npm2_init='cd /var/www/p365-sphere; docker run -d -it --name p365-npm2 --privileged=true --network=p365-network -v "$(pwd)"/.:/srv -w /srv/p365 node:11.13.0-alpine /bin/ash'
+alias p365_npm2_init='cd /var/www/p365-sphere; docker run -d -it --name p365-npm2 --privileged=true --network=p365-network -v "$(pwd)"/.:/srv -w /srv/p365 node:13.8.0-alpine /bin/ash'
 alias p365_npm2_start='docker exec -it p365-npm2 ash'
 
 alias p365_mocha_worker_init='cd /var/www/p365-sphere/p365; docker run -d -it --name p365-mocha1 --privileged=true --network=p365-network -p 3000-3199:3000-3199/tcp -v "$(pwd)"/.:/srv -v /var/run/docker.sock:/var/run/docker.sock -w /srv p365/worker:dev-cluster /bin/bash'
