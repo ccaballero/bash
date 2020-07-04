@@ -1,0 +1,128 @@
+#!/usr/bin/env node
+
+/*
+ * Usage: ./tagging.sh <project_path>
+ */
+
+if(!process.argv[2]){
+    console.log('Need one parameter, proyect path');
+    process.exit(1);
+}
+
+const spawnSync=require('child_process').spawnSync
+  , colors=require('colors')
+  , fs=require('fs')
+  , join=require('path').join
+  , readline=require('readline-sync')
+  , project_dir=process.argv[2]||'/var/www/p365-sphere/p365'
+  , submodules=fs.readFileSync(join(project_dir,'.gitmodules'))
+        .toString()
+        .split('\n')
+        .filter((i)=>{
+            return /.*path\ \=\ .*/.test(i);
+        })
+        .map((j)=>{
+            return /.*path\ \=\ (.*)/.exec(j)[1];
+        });
+
+colors.enabled=true;
+
+console.log(colors.yellow('Found %d modules to analyze'),submodules.length);
+
+submodules.forEach((submodule)=>{
+    var a=spawnSync(
+        'cd '+join(project_dir,submodule)+'; '+
+        'git describe',{
+            shell:true
+        }).stdout.toString().split('-');
+
+    console.log(colors.cyan('Repository:')+' %s',submodule);
+    console.log(colors.cyan('Last tag:')+' %s',a[0]);
+
+    if(a[1]){
+        var b=spawnSync(
+            'cd '+join(project_dir,submodule)+'; '+
+            'git --no-pager log --oneline --decorate -'+(+a[1]+1),{
+                shell:true
+            }).stdout.toString().split('\n');
+
+        console.log(colors.cyan('Git Log:'));
+        b.forEach((i)=>{
+            console.log('    ',i);
+        });
+
+        var options=[
+                'Create new tag'
+              , 'Remove last tag'
+              , 'Upgrade last tag'
+              , 'Skip repository'
+              , 'Exit'
+            ]
+          , option=readline.keyInSelect(options,'Select an option')
+          , version
+          , c;
+
+        switch(option){
+            case 0:
+                version=a[0].split('.');
+
+                var last_number=+version[version.length-1];
+
+                version[version.length-1]=last_number+1;
+
+                var new_tag=version.join('.')
+                  , tagname=readline.question('Enter the name of the new tag ('+
+                        new_tag+'): ',{
+                        defaultInput:new_tag
+                    });
+
+                console.log(colors.magenta('Creating new tag: %s'),tagname);
+
+                c=spawnSync(
+                    'cd '+join(project_dir,submodule)+'; '+
+                    'git tag -a '+tagname+' -m "'+tagname+'"; '+
+                    'git push origin '+tagname,{
+                        shell:true
+                    }).stdout.toString();
+
+                console.log(c);
+                break;
+            case 1:
+                version=a[0];
+
+                console.log(colors.magenta('Removing tag: %s'),version);
+
+                c=spawnSync(
+                    'cd '+join(project_dir,submodule)+'; '+
+                    'git tag -d '+version+'; '+
+                    'git push origin :refs/tags/'+version,{
+                        shell:true
+                    }).stdout.toString();
+
+                console.log(c);
+                break;
+            case 2:
+                version=a[0];
+
+                console.log(colors.magenta('Upgrading tag: %s'),version);
+
+                c=spawnSync(
+                    'cd '+join(project_dir,submodule)+'; '+
+                    'git tag -d '+version+'; '+
+                    'git push origin :refs/tags/'+version+'; '+
+                    'git tag -a '+version+' -m "'+version+'"; '+
+                    'git push origin '+version,{
+                        shell:true
+                    }).stdout.toString();
+
+                console.log(c);
+                break;
+            case 3:
+                break;
+            case 4:
+                process.exit(0);
+                break;
+        }
+    }
+});
+

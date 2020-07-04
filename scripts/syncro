@@ -9,13 +9,13 @@ const path=require('path')
   , join=path.join
   , parse=path.parse
   , fs=require('fs')
-  , mediadir='/media/music/'
+  , mediadir='/home/jacobian/Música/'
   , playlist=process.argv[2]                    // path for mpd playlist
   , destdir=process.argv[3]||'/mnt/sdc1/music'  // path for push music
   , copy=(orig,dest)=>{
         return new Promise((resolve,reject)=>{
             let rd=fs.createReadStream(orig)
-              , wr=fs.createWriteStream(dest)
+              , wr=fs.createWriteStream(dest);
 
             rd.on('error',(err)=>{
                 console.log(err);
@@ -27,7 +27,7 @@ const path=require('path')
                 reject(err);
             });
 
-            wr.on('close',(ex)=>{
+            wr.on('close',()=>{
                 console.log(orig,'->',dest);
             });
 
@@ -35,13 +35,13 @@ const path=require('path')
             resolve();
         });
     }
-  , playlist_=parse(playlist)
+  , playlist_=parse(playlist);
 
 fs.readFile(playlist,'utf8',(err,data)=>{
     let songs=data.split(/\n/)
       , list=[]
       , dest_dir=join(destdir,playlist_.name)
-      , files=[]
+      , files=[];
 
     fs.access(dest_dir,fs.constants.R_OK,(err)=>{
         if(err){
@@ -52,7 +52,7 @@ fs.readFile(playlist,'utf8',(err,data)=>{
             if(song!=''){
                 let orig=join(mediadir,song)
                   , orig_=parse(orig)
-                  , dest=join(dest_dir,orig_.base)
+                  , dest=join(dest_dir,orig_.base);
 
                 dest=dest.replace(':','-');
                 files.push(playlist_.name+'/'+orig_.base);
@@ -60,9 +60,9 @@ fs.readFile(playlist,'utf8',(err,data)=>{
             }
         }
 
-        Promise.all(list).then((values)=>{
+        Promise.all(list).then(()=>{
             fs.writeFile(join(destdir,playlist_.base),
-                files.join('\n'),(error)=>{
+                files.join('\n'),()=>{
                 console.log('[OK]');
             });
         });
