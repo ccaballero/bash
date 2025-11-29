@@ -1,0 +1,41 @@
+#!/bin/bash
+# checking variables to change in p365 code
+
+cd /var/www/p365-sphere
+
+find core -type f -name '*.js' | \
+    grep -v node_modules | \
+    xargs \
+        grep -f /home/jacobian/.bash/scripts/p365-match.txt | \
+        grep -v notifiers | \
+        grep -v Indonesia | \
+        grep -v "logger.js" | \
+        grep -v "await sleep" | \
+        grep -v "import {sleep}" | \
+        grep -v "import {SimpleLogger,sleep}" | \
+        grep -v "core/util" | \
+        sort
+
+find task -type f -name '*.js' | \
+    grep -v node_modules | \
+    xargs \
+        grep -f /home/jacobian/.bash/scripts/p365-match.txt | \
+        grep -v "sleeping poodle" | \
+        grep -v "exclusive/src/task.js" | \
+        grep -v "await sleep" | \
+        grep -v "import {sleep}" | \
+        grep -v "import {SimpleLogger,sleep}" | \
+        grep -v "services/HTMLCapturer.js" | \
+        sort
+
+find server -type f -name '*.js' | \
+    grep -v node_modules | \
+    xargs \
+        grep -f /home/jacobian/.bash/scripts/p365-match.txt | \
+        grep -v "await sleep" | \
+        grep -v "import {sleep}" | \
+        grep -v "import {SimpleLogger,sleep}" | \
+        sort
+
+cd -
+

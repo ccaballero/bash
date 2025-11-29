@@ -1,0 +1,84 @@
+#!/usr/bin/env node
+# copy files from music repository to local directory from a playlist
+# syncro.js <playlist> <dir>
+
+if(!process.argv[2]){
+    console.log('Need one or two parameters: playlist path and dest dir');
+    process.exit(1);
+}
+
+const {join,parse}=require('path'),
+    fs=require('fs'),
+    util=require('util'),
+    mediadir='/home/jacobian/Música/',
+    playlist=process.argv[2],                   // path for mpd playlist
+    destdir=process.argv[3]||'/mnt/sdc1/music', // path for push music
+    _playlist=parse(playlist);
+
+const access=util.promisify(fs.access),
+    copyFile=util.promisify(fs.copyFile),
+    mkdir=util.promisify(fs.mkdir),
+    readFile=util.promisify(fs.readFile),
+    writeFile=util.promisify(fs.writeFile);
+
+async function syncro(){
+    let data=await readFile(playlist,'utf-8'),
+        songs=data.split(/\n/),
+        list=[],
+        dest_dir=join(destdir,_playlist.name),
+        files=[],
+        index=1;
+
+    try {
+        await access(dest_dir,fs.constants.R_OK);
+    }catch(error){
+        mkdir(dest_dir);
+    }
+
+    for(let song of songs){
+        if(song!=''){
+            let src=join(mediadir,song),
+                _src=parse(src),
+                number=new String(index).padStart(3,'0'),
+                dest=join(dest_dir,number+_src.ext);
+            
+            dest=dest.replace(':','-');
+            files.push(_playlist.name+'/'+_src.base);
+            list.push({
+                src:src,
+                dest:dest
+            });
+            
+            index++;
+        }
+    }
+
+    list.reduce(async(sum,item)=>{
+        return sum.then(async()=>{
+            let result='cp '+item.src+' ~> '+item.dest,
+                length=200;
+
+            process.stdout.write(
+                result.substring(0,Math.min(result.length,length))
+            );
+            process.stdout.write(
+                '.'.repeat(Math.max(0,length-result.length))
+            );
+
+            await copyFile(item.src,item.dest);
+            console.log(' [OK]');
+
+            return Promise.resolve();
+        });
+    },Promise.resolve())
+    .then(()=>{
+        let path=join(destdir,_playlist.base);
+
+        console.log('write playlist: %s',path);
+        writeFile(path,files.join('\n'));
+        console.log('[OK]');
+    });
+}
+
+syncro();
+

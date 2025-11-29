@@ -1,0 +1,63 @@
+#!/bin/bash
+# checking eslint on all modules for p365
+
+ORIGINAL_DIR=$(pwd)
+
+cd /var/www/p365-sphere
+
+cd core/util; eslint .; cd -
+cd core/couchdb; eslint .; cd -
+cd core/validation; eslint .; cd -
+cd core/target; eslint .; cd -
+
+cd task/exclusive; eslint .; cd -
+cd task/repository/create; eslint .; cd -
+cd task/repository/remove; eslint .; cd -
+
+cd task/analyzer/https; eslint .; cd -
+cd task/analyzer/technologies; eslint .; cd -
+cd task/analyzer/vulnerabilities; eslint .; cd -
+cd task/analyzer/metasploit; eslint .; cd -
+cd task/analyzer/web; eslint .; cd -
+
+cd task/recon/passive; eslint .; cd -
+cd task/recon/dns; eslint .; cd -
+cd task/recon/sniff; eslint .; cd -
+cd task/search/whois; eslint .; cd -
+cd task/search/rdap; eslint .; cd -
+
+cd task/network/shodan; eslint .; cd -
+cd task/network/portscan; eslint .; cd -
+
+cd task/http/request; eslint .; cd -
+cd task/http/crawler; eslint .; cd -
+cd task/http/fuzzer; eslint .; cd -
+
+cd task/scanner/reconnaissance; eslint .; cd -
+cd task/scanner/network; eslint .; cd -
+cd task/scanner/vulnerabilities; eslint .; cd -
+cd task/scanner/web; eslint .; cd -
+
+cd core/server; eslint .; cd -
+
+cd server/worker/single; eslint .; cd -
+cd server/worker/cluster; eslint .; cd -
+cd server/dbserver; eslint .; cd -
+
+cd core/worker; eslint .; cd -
+
+cd server/cluster; eslint .; cd -
+cd server/scheduler; eslint .; cd -
+
+cd core/report; eslint .; cd -
+cd core/task; eslint .; cd -
+
+cd server/notifier; eslint .; cd -
+
+cd core/scheduler; eslint .; cd -
+cd core/notifier; eslint .; cd -
+
+cd server/master; eslint .; cd -
+
+cd $ORIGINAL_DIR
+

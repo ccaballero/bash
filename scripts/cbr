@@ -1,4 +1,6 @@
 #!/bin/bash
+# create a rar file in cbr extension
+# cbr <dir>
 
 echo Create a CBR file for $1
 

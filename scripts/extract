@@ -1,0 +1,12 @@
+#!/bin/bash
+# extract multiple images from a video at a certain resolution
+# extract <filename> <frames-per-second>
+
+input=$1
+file_name="${input##*/}"
+file_extension="${file_name##*.}"
+file="${file_name%.*}"
+
+echo "converting $file in $2 fps"
+ffmpeg -i $1 -r $2 "$file-%3d.jpg"
+

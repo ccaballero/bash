@@ -90,14 +90,14 @@ bash_prompt(){
     local BACKGROUND_3=$WHITE
     local TEXTEFFECT_3=$BOLD
 
-    local PROMT_FORMAT=$TOXIC_GREEN_BOLD
+    local PROMPT_FORMAT=$TOXIC_GREEN_BOLD
 
     if [ "$HOSTNAME" = dell ]
     then
         FONT_COLOR_1=$WHITE; BACKGROUND_1=$BLUE; TEXTEFFECT_1=$BOLD
         FONT_COLOR_2=$WHITE; BACKGROUND_2=$L_BLUE; TEXTEFFECT_2=$BOLD 
         FONT_COLOR_3=$D_GRAY; BACKGROUND_3=$WHITE; TEXTEFFECT_3=$BOLD 
-        PROMT_FORMAT=$CYAN_BOLD
+        PROMPT_FORMAT=$CYAN_BOLD
     fi
 
     if [ "$HOSTNAME" = giraff6 ]
@@ -105,7 +105,7 @@ bash_prompt(){
         FONT_COLOR_1=$WHITE; BACKGROUND_1=$BLACK; TEXTEFFECT_1=$BOLD
         FONT_COLOR_2=$WHITE; BACKGROUND_2=$D_GRAY; TEXTEFFECT_2=$BOLD
         FONT_COLOR_3=$WHITE; BACKGROUND_3=$RED; TEXTEFFECT_3=$BOLD
-        PROMT_FORMAT=$RED_BOLD
+        PROMPT_FORMAT=$RED_BOLD
     fi
 
     if [ "$HOSTNAME" = sharkoon ]
@@ -113,7 +113,7 @@ bash_prompt(){
         FONT_COLOR_1=$BLACK; BACKGROUND_1=$L_CYAN; TEXTEFFECT_1=$BOLD
         FONT_COLOR_2=$WHITE; BACKGROUND_2=$L_BLUE; TEXTEFFECT_2=$BOLD
         FONT_COLOR_3=$WHITE; BACKGROUND_3=$BLUE; TEXTEFFECT_3=$BOLD
-        PROMT_FORMAT=$CYAN_BOLD
+        PROMPT_FORMAT=$CYAN_BOLD
     fi
 
     if [ "$HOSTNAME" = giraff ]
@@ -121,15 +121,15 @@ bash_prompt(){
         FONT_COLOR_1=$WHITE; BACKGROUND_1=$BLACK; TEXTEFFECT_1=$BOLD
         FONT_COLOR_2=$WHITE; BACKGROUND_2=$D_GRAY; TEXTEFFECT_2=$BOLD
         FONT_COLOR_3=$WHITE; BACKGROUND_3=$L_GRAY; TEXTEFFECT_3=$BOLD
-        PROMT_FORMAT=$BLACK_BOLD
+        PROMPT_FORMAT=$BLACK_BOLD
     fi
 
-    if [ "$HOSTNAME" = light ]
+    if [ "$HOSTNAME" = munua ]
     then
         FONT_COLOR_1=$WHITE; BACKGROUND_1=$BLACK; TEXTEFFECT_1=$BOLD
         FONT_COLOR_2=$WHITE; BACKGROUND_2=$D_GRAY; TEXTEFFECT_2=$BOLD
         FONT_COLOR_3=$BLACK; BACKGROUND_3=$L_CYAN; TEXTEFFECT_3=$BOLD
-        PROMT_FORMAT=$CYAN_BOLD
+        PROMPT_FORMAT=$CYAN_BOLD
     fi
 
     FC1=$(($FONT_COLOR_1+$COLOR))
@@ -157,10 +157,10 @@ bash_prompt(){
     format_font TEXT_FORMAT_3 $FC3 $FE3 $BG3
     format_font TEXT_FORMAT_4 $FC4 $FE4 $BG4
 
-    local PROMT_USER=$"$TEXT_FORMAT_1 \u "
-    local PROMT_HOST=$"$TEXT_FORMAT_2 \h "
-    local PROMT_PWD=$"$TEXT_FORMAT_3 \${NEW_PWD} "
-    local PROMT_INPUT=$"$PROMT_FORMAT "
+    local PROMPT_USER=$"$TEXT_FORMAT_1 \u "
+    local PROMPT_HOST=$"$TEXT_FORMAT_2 \h "
+    local PROMPT_PWD=$"$TEXT_FORMAT_3 \${NEW_PWD} "
+    local PROMPT_INPUT=$"$PROMPT_FORMAT "
 
     TSFC1=$(($BACKGROUND_1+$COLOR))
     TSBG1=$(($BACKGROUND_2+$BG))
@@ -192,7 +192,7 @@ bash_prompt(){
             ;;
     esac
 
-    PS1="$TITLEBAR\n${PROMT_USER}${SEPARATOR_1}${PROMT_HOST}${SEPARATOR_2}${PROMT_PWD}${SEPARATOR_3}${PROMT_INPUT}"
+    PS1="$TITLEBAR\n${PROMPT_USER}${SEPARATOR_1}${PROMPT_HOST}${SEPARATOR_2}${PROMPT_PWD}${SEPARATOR_3}${PROMPT_INPUT}"
 
     none="$(tput sgr0)"
     trap 'echo -ne "${none}"' DEBUG
@@ -206,9 +206,8 @@ then
     unset bash_prompt
 fi
 
-
-export CDPATH=.:~/Proyectos/:/var/www/p365-sphere/:/var/www/firmanza-sphere
-export PATH=$PATH:~/.local/bin:~/.bash/scripts:/opt/ataraxia/builds/ataraxia-linux-x64
+export CDPATH=.:~/Proyectos/:/var/www/p365-sphere/
+export PATH=$PATH:~/.local/bin:~/.bash/scripts:/opt/ataraxia
 
 export HISTFILESIZE=
 export HISTSIZE=

@@ -322,7 +322,8 @@ export HISTFILE=~/.bash_eternal_history
 
 PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 
-if [[ $DISPLAY ]]; then
+if [[ $DISPLAY ]]
+then
     setxkbmap -option keypad:pointerkeys
 fi
 

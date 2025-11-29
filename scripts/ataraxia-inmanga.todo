@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 if(!process.argv[2]){
-    console.log('Need one parameter, url from tmo');
+    console.log('Need one parameter: url from tmo');
     process.exit(1);
 }
 

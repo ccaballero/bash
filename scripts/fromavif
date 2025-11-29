@@ -1,0 +1,10 @@
+#!/bin/bash
+# transform an avif files in directory to jpg file
+# cd <dirfile>; fromavif
+
+for file in ./*
+do
+    name="${file%.*}"
+    ffmpeg -i $file "$name.jpg"
+done
+

@@ -34,7 +34,7 @@ submodules.forEach((submodule)=>{
         'cd '+join(project_dir,submodule)+'; '+
         'git describe',{
             shell:true
-        }).stdout.toString().split('-');
+        }).stdout.toString().split('\n')[1].split('-');
 
     console.log(colors.cyan('Repository:')+' %s',submodule);
     console.log(colors.cyan('Last tag:')+' %s',a[0]);
@@ -44,7 +44,7 @@ submodules.forEach((submodule)=>{
             'cd '+join(project_dir,submodule)+'; '+
             'git --no-pager log --oneline --decorate -'+(+a[1]+1),{
                 shell:true
-            }).stdout.toString().split('\n');
+            }).stdout.toString().split('\n').slice(1);
 
         console.log(colors.cyan('Git Log:'));
         b.forEach((i)=>{

@@ -1,0 +1,71 @@
+#!/usr/bin/env node
+/*
+ * checking if a list of checksum files was repeated
+ * babel-collision.js <checksum-list>
+ */
+
+if(!process.argv[2]){
+    console.log('Need almost one parameter: checksum list');
+    process.exit(1);
+}
+
+const fs=require('fs'),
+    {join,resolve}=require('path'),
+    util=require('util'),
+    readFile=util.promisify(fs.readFile),
+    cwd=resolve('.'),
+    list=process.argv.slice(2);
+
+let collection={},
+    collisions={},
+    has=false;
+
+async function read(){
+    list.reduce(async(sum,item)=>{
+        return sum.then(async()=>{
+            console.log('read: [%s]',item);
+
+            const data=await readFile(resolve(cwd,item)),
+                _list=data.toString().split('\n');
+
+            _list.forEach((i)=>{
+                if(i){
+                    const hash=i.slice(0,32),
+                        path=i.slice(33);
+
+                    if(hash in collection){
+                        has=true;
+
+                        if(hash in collisions){
+                            collisions[hash].push(path);
+                        }else{
+                            collisions[hash]=[collection[hash],path];
+                        }
+                    }else{
+                        collection[hash]=path;
+                    }
+                }
+            });
+
+            return Promise.resolve();
+        });
+    },Promise.resolve())
+    .then(()=>{
+        console.log('result: [%s]',(has?'COLLISION':'NO COLLISION'));
+
+        if(has){
+            console.log();
+
+            Object.keys(collisions).forEach((hash)=>{
+                console.log('%s',hash);
+
+                collisions[hash].forEach((path)=>{
+                    console.log(' '.repeat(33),path);
+                });
+            });
+        }
+    });
+}
+
+read();
+

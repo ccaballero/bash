@@ -1,0 +1,64 @@
+#!/bin/bash
+# execute a same command on all modules for p365
+
+ORIGINAL_DIR=$(pwd)
+
+cd /var/www/p365-sphere
+
+LIST=(
+    core/couchdb
+    core/notifier
+    core/report
+    core/scheduler
+    core/server
+    core/target
+    core/task
+    core/util
+    core/validation
+    core/worker
+
+    task/analyzer/https
+    task/analyzer/metasploit
+    task/analyzer/technologies
+    task/analyzer/vulnerabilities
+    task/analyzer/web
+    task/exclusive
+    task/http/crawler
+    task/http/fuzzer
+    task/http/request
+    task/network/portscan
+    task/network/shodan
+    task/recon/dns
+    task/recon/passive
+    task/recon/sniff
+    task/repository/create
+    task/repository/remove
+    task/scanner/network
+    task/scanner/reconnaissance
+    task/scanner/vulnerabilities
+    task/scanner/web
+    task/search/rdap
+    task/search/whois
+
+    server/dbserver
+    server/cluster
+    server/master
+    server/notifier
+    server/scheduler
+    server/worker/cluster
+    server/worker/single
+)
+
+COMMAND="$@"
+
+echo "running: [$COMMAND]"
+
+for ITEM in "${LIST[@]}"
+do
+    cd $ITEM
+    eval "$COMMAND"
+    cd -
+done
+
+cd $ORIGINAL_DIR
+

@@ -1,4 +1,4 @@
-# vim: set filetype=sh :
+# vim: ft=sh :
 
 alias root="sudo su"
 alias grep="grep --color=always"
@@ -10,40 +10,15 @@ alias uncdrom="cd; sudo umount /mnt/cdrom; eject /dev/sr0"
 alias check_cdrom="eject -t /dev/sr0; sleep 15; sudo mount /dev/sr0 /mnt/cdrom; cd /mnt/cdrom"
 
 alias redis-cli="docker exec -it p365-redis redis-cli"
-alias mongo="mongo --host=localhost"
-alias mocha="mocha --exit -t spec"
+alias mongo-cli="docker exec -it p365-mongodb mongo"
+alias mocha="ENV=testing mocha --exit -t spec --timeout=0 --bail --reporter-option maxDiffSize=65336"
 
 alias view_crl="openssl crl -noout -text -in"
 alias view_ca="openssl x509 -noout -text -in"
 alias view_csr="openssl req -noout -text -in"
-
-alias jpm="jpm --binary /usr/bin/firefox --profile jacobian"
-
-alias pull_music="rsync -avz rsync://main/music/ /media/music/"
-alias pulld_music="rsync -avz --delete rsync://main/music/ /media/music/"
-
-alias mount_android="mtpfs -o allow_other /mnt/android"
-alias umount_android="fusermount -u /mnt/android"
-
-alias view_crl="openssl crl -noout -text -in"
-alias view_ca="openssl x509 -noout -text -in"
-alias view_csr="openssl req -noout -text -in"
-
-alias p365_npm1_init='docker run -d -it --name p365-npm1 --privileged=true --network=p365-network -v "$(pwd)"/.:/srv -w /srv node:11.13.0 /bin/bash'
-alias p365_npm1_start='docker exec -it p365-npm1 bash'
-alias p365_npm2_init='docker run -d -it --name p365-npm2 --privileged=true --network=p365-network -v "$(pwd)"/.:/srv -w /srv node:11.13.0-alpine /bin/ash'
-alias p365_npm2_start='docker exec -it p365-npm2 ash'
-
-alias p365_mocha_worker_init='docker run -d -it --name p365-mocha1 --privileged=true --network=p365-network -p 3100:3100/tcp -v "$(pwd)"/.:/srv -v /var/run/docker.sock:/var/run/docker.sock -v p365-tmp:/tmp -w /srv p365/worker:dev-cluster /bin/bash'
-alias p365_mocha_worker_start='docker exec -it p365-mocha1 bash'
-alias p365_mocha_master_init='docker run -d -it --name p365-mocha2 --privileged=true --network=p365-network -p 3000:3000/tcp -v "$(pwd)"/.:/srv -w /srv/p365-server-master p365/master:dev /bin/bash'
-alias p365_mocha_master_start='docker exec -it p365-mocha2 bash'
 
 alias docker_stop='docker stop $(docker ps -a -q)'
 alias docker_rm='docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q)'
 alias docker_ps="docker ps --all"
 alias docker_logs="docker logs -f --tail=1000"
-
-alias wdio_only='/var/www/p365-sphere/p365-tests/node_modules/.bin/wdio wdio.conf.js --cucumberOpts.tagExpression="@only" --suite'
-alias wdio='/var/www/p365-sphere/p365-tests/node_modules/.bin/wdio wdio.conf.js --suite'
 

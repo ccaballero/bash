@@ -1,0 +1,8 @@
+monitorization_id
+sleep
+setTimeout
+index_name
+config=configTest
+config()
+redisClient
+logger

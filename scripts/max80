@@ -1,6 +1,6 @@
 #!/bin/bash
-
-# vim: ft=bash
+# retrieve files from a directory that break the 80-line standard
+# max80 <dirfile>
 
 if [ $# -lt 1 ]
 then

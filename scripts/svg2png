@@ -1,0 +1,15 @@
+#!/bin/bash
+# generate png file from a svg file in 64px
+
+for file in ./*
+do
+    name="${file%.*}"
+    ext="${file##*.}"
+
+    if [[ "$ext" == "svg" ]]
+    then
+        echo $file
+        inkscape -w 64 "$file" -o "$name.png"
+    fi
+done
+

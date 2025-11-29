@@ -1,0 +1,10 @@
+#!/bin/bash
+# transform png to jpg files in a directory
+# cd <dirfile>; tojpeg
+
+for file in ./*
+do
+    name="${file%.*}"
+    convert $file "$name.jpg"
+done
+

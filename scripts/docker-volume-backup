@@ -1,8 +1,9 @@
 #!/bin/bash
-
+# create a tbz file from a docker volume
 # two arguments:
 #     volume name
 #     path to file
+
 if [ $# == 2 ]; then
     echo making backup of $1 in $2
 

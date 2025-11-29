@@ -1,0 +1,10 @@
+#!/bin/bash
+# transform a webp files in directory to png file
+# cd <dirfile>; fromavif
+
+for file in ./*
+do
+    name="${file%.*}"
+    dwebp $file -o "$name.png"
+done
+
