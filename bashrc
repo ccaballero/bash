@@ -192,7 +192,9 @@ bash_prompt(){
             ;;
     esac
 
-    PS1="$TITLEBAR\n${PROMPT_USER}${SEPARATOR_1}${PROMPT_HOST}${SEPARATOR_2}${PROMPT_PWD}${SEPARATOR_3}${PROMPT_INPUT}"
+    source /usr/share/git/git-prompt.sh
+
+    PS1="$TITLEBAR\n${PROMPT_USER}${SEPARATOR_1}${PROMPT_HOST}${SEPARATOR_2}\$(__git_ps1 \" (%s)\") ${PROMPT_PWD}${SEPARATOR_3}${PROMPT_INPUT}"
 
     none="$(tput sgr0)"
     trap 'echo -ne "${none}"' DEBUG
@@ -207,7 +209,7 @@ then
 fi
 
 export CDPATH=.:~/Proyectos/:/var/www/p365-sphere/
-export PATH=$PATH:~/.local/bin:~/.bash/scripts:/opt/ataraxia
+export PATH=$PATH:~/.local/bin:~/.bash/scripts:/opt/ataraxia:/var/www/p365-sphere/deployment/script/packages
 
 export HISTFILESIZE=
 export HISTSIZE=

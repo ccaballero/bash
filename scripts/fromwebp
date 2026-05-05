@@ -6,5 +6,6 @@ for file in ./*
 do
     name="${file%.*}"
     dwebp $file -o "$name.png"
+    magick "$name.png" "$name.jpg"
 done
 
