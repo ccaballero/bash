@@ -79,11 +79,11 @@ bash_prompt(){
     local BLUE_BOLD="\[\033[1;38;5;74m\]"
 
     local FONT_COLOR_1=$WHITE
-    local BACKGROUND_1=$GREEN
+    local BACKGROUND_1=$MAGENTA
     local TEXTEFFECT_1=$BOLD
 
     local FONT_COLOR_2=$WHITE
-    local BACKGROUND_2=$L_GREEN
+    local BACKGROUND_2=$L_MAGENTA
     local TEXTEFFECT_2=$BOLD
 
     local FONT_COLOR_3=$D_GRAY
@@ -209,7 +209,7 @@ then
 fi
 
 export CDPATH=.:~/Proyectos/:/var/www/p365-sphere/
-export PATH=$PATH:~/.local/bin:~/.bash/scripts:/opt/ataraxia:/var/www/p365-sphere/deployment/script/packages
+export PATH=$PATH:~/.bash/scripts:~/.local/bin:~/.local/opt/ataraxia
 
 export HISTFILESIZE=
 export HISTSIZE=
@@ -217,11 +217,6 @@ export HISTTIMEFORMAT="[%F %T] "
 export HISTFILE=~/.bash_eternal_history
 
 PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
-
-if [[ $DISPLAY ]]
-then
-    setxkbmap -option keypad:pointerkeys
-fi
 
 if [ -f ~/.bash/bash.aliases ]
 then
@@ -231,5 +226,10 @@ fi
 if [ -f ~/.bash/bash.secrets ]
 then
     . ~/.bash/bash.secrets
+fi
+
+if [ -z "$SSH_CLIENT" ] && [ -z "$SSH_TTY" ]
+then
+    fastfetch
 fi
 

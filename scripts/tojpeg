@@ -5,6 +5,6 @@
 for file in ./*
 do
     name="${file%.*}"
-    convert $file "$name.jpg"
+    magick $file "$name.jpg"
 done
 
